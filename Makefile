@@ -29,4 +29,4 @@ test-coverage:
 
 #See test coverage in the browser
 test-coverage-html:
-	go tool cover -html=coverage.out                                                                                                                                                                                                                                                                                 ─╯
+	go tool cover -html=coverage.out
