@@ -5,10 +5,12 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"log"
 	"metro-in/internal/common/entity"
+	"metro-in/internal/common/errors"
 	"os"
 )
+
+var context = "Database"
 
 var tables = []interface{}{
 	&entity.SubwayLineStation{},
@@ -22,7 +24,7 @@ type Database struct {
 }
 
 // ConnectDb initiate db connection with the given .env variables
-func ConnectDb() *Database {
+func ConnectDb() (*Database, error) {
 	dns := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=5432 sslmode=disable TimeZone=Asia/Shanghai",
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_USER"),
@@ -35,23 +37,22 @@ func ConnectDb() *Database {
 	})
 
 	if err != nil {
-		log.Fatal("Failed to connect to database. \n", err)
+		return nil, errors.Error{Context: context, Message: "Failed to connect to database", Err: err}
 	}
 
-	err = migrateTables(db)
+	err = autoMigrateTables(db)
 	if err != nil {
-		log.Fatal("Failed to migrate tables. \n", err)
+		return nil, errors.Error{Context: context, Message: "Failed during migrations", Err: err}
 	}
 
 	return &Database{
 		db: db,
-	}
+	}, nil
 }
 
-func migrateTables(db *gorm.DB) error {
+func autoMigrateTables(db *gorm.DB) error {
 	for _, table := range tables {
-		err := migrateTable(db, table)
-		if err != nil {
+		if err := migrateTable(db, table); err != nil {
 			return err
 		}
 	}
