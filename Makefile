@@ -23,10 +23,12 @@ validate-conventions:
 validate-code:
 	go vet ./...
 
-# Run tests and generate coverage file
+# Run all tests
+test:
+	go test./...
+
+# Run all tests and generate coverage file.
+# The coverage will be displayed in the browser
 test-coverage:
 	go test ./... -coverprofile=coverage.out
-
-#See test coverage in the browser
-test-coverage-html:
 	go tool cover -html=coverage.out
