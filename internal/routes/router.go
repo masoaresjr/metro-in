@@ -2,15 +2,15 @@ package routes
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"gorm.io/gorm"
 	"log"
 	"metro-in/internal/common/controller"
-	"metro-in/internal/config/database"
 )
 
 var subwayLineController controller.SubwayLineController
 
 // StartRoutes start http routes and listen to then
-func StartRoutes(dbClient *database.Database) {
+func StartRoutes(dbClient *gorm.DB) {
 
 	subwayLineController = controller.NewSubwayLineController(dbClient)
 

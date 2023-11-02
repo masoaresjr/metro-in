@@ -1,8 +1,8 @@
 package service
 
 import (
+	"gorm.io/gorm"
 	"metro-in/internal/common/repository"
-	"metro-in/internal/config/database"
 )
 
 // SubwayServiceImpl implementation for SubwayLineService
@@ -15,6 +15,6 @@ type SubwayLineService interface {
 }
 
 // NewSubwayLineService constructor for SubwayLineService
-func NewSubwayLineService(dbClient *database.Database) SubwayLineService {
+func NewSubwayLineService(dbClient *gorm.DB) SubwayLineService {
 	return &SubwayServiceImpl{subwayRepository: repository.NewSubwayLineRepository(dbClient)}
 }

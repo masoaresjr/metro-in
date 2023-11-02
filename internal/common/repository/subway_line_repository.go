@@ -1,10 +1,12 @@
 package repository
 
-import "metro-in/internal/config/database"
+import (
+	"gorm.io/gorm"
+)
 
 // SubwayLineRepositoryImpl implementation for SubwayLineRepository
 type SubwayLineRepositoryImpl struct {
-	db database.Database
+	db *gorm.DB
 }
 
 // SubwayLineRepository interface for subway lines at database
@@ -12,6 +14,6 @@ type SubwayLineRepository interface {
 }
 
 // NewSubwayLineRepository constructor for SubwayLineRepository
-func NewSubwayLineRepository(dbClient *database.Database) SubwayLineRepository {
-	return &SubwayLineRepositoryImpl{db: *dbClient}
+func NewSubwayLineRepository(dbClient *gorm.DB) SubwayLineRepository {
+	return &SubwayLineRepositoryImpl{db: dbClient}
 }

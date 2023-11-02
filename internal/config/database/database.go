@@ -18,13 +18,8 @@ var tables = []interface{}{
 	&entity.SubwayLine{},
 }
 
-// Database struct to the database connections
-type Database struct {
-	db *gorm.DB
-}
-
 // ConnectDb initiate db connection with the given .env variables
-func ConnectDb() (*Database, error) {
+func ConnectDb() (*gorm.DB, error) {
 	dns := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=5432 sslmode=disable TimeZone=Asia/Shanghai",
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_USER"),
@@ -45,9 +40,7 @@ func ConnectDb() (*Database, error) {
 		return nil, errors.Error{Context: context, Message: "Failed during migrations", Err: err}
 	}
 
-	return &Database{
-		db: db,
-	}, nil
+	return db, nil
 }
 
 func autoMigrateTables(db *gorm.DB) error {

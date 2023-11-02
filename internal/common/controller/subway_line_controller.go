@@ -2,8 +2,8 @@ package controller
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"gorm.io/gorm"
 	"metro-in/internal/common/service"
-	"metro-in/internal/config/database"
 )
 
 // SubwayLineControllerImpl implementation for SubwayLineController
@@ -17,7 +17,7 @@ type SubwayLineController interface {
 }
 
 // NewSubwayLineController constructor for SubwayLineController
-func NewSubwayLineController(dbClient *database.Database) SubwayLineController {
+func NewSubwayLineController(dbClient *gorm.DB) SubwayLineController {
 	return &SubwayLineControllerImpl{subwayService: service.NewSubwayLineService(dbClient)}
 }
 
