@@ -1,0 +1,5 @@
+mode: set
+metro-in/internal/common/service/subway_line_service.go:18.74,20.2 1 0
+metro-in/internal/common/repository/subway_line_repository.go:15.80,17.2 1 0
+metro-in/internal/common/controller/subway_line_controller.go:20.80,22.2 1 0
+metro-in/internal/common/controller/subway_line_controller.go:25.61,27.2 1 0
