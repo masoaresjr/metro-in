@@ -19,9 +19,9 @@ func NewStationServiceMock() service.StationService {
 	return &stationServiceMock{ stationRepository: mock.NewStationRepositoryMock() }
 }
 
-func (s *stationServiceMock) GetStationByName(name string) (*entity.Station, error) {
+func (s *stationServiceMock) GetStationByName(name string) (entity.Station, error) {
 	if name == "corinthians-itaquera" {
-		return &entity.Station{}, nil
+		return entity.Station{}, nil
 	}
-	return nil, custom_errors.Error{ Context: "Mock", Message: "Mocked Error", Err: errors.New("mocked")}
+	return entity.Station{}, custom_errors.Error{ Context: "Mock", Message: "Mocked Error", Err: errors.New("mocked")}
 }

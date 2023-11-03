@@ -13,6 +13,6 @@ func NewStationRepositoryMock() repository.StationRepository {
 	return &stationRepositoryMock{}
 }
 
-func (s *stationRepositoryMock) GetStationByName(name string) (*entity.Station, error) {
-	return &entity.Station{}, nil
+func (s *stationRepositoryMock) GetStationByName(name string) (result entity.Station, err error) {
+	return result, nil
 }

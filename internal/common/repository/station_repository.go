@@ -12,7 +12,7 @@ type stationRepositoryImpl struct {
 
 // StationRepository interface for stations at database
 type StationRepository interface {
-	GetStationByName(name string) (*entity.Station, error)
+	GetStationByName(name string) (result entity.Station, err error)
 }
 
 // NewStationRepository constructor for StationRepository
@@ -20,6 +20,7 @@ func NewStationRepository(dbClient *gorm.DB) StationRepository {
 	return &stationRepositoryImpl{db: dbClient}
 }
 
-func (s *stationRepositoryImpl) GetStationByName(name string) (*entity.Station, error) {
-	return &entity.Station{}, nil
+func (r *stationRepositoryImpl) GetStationByName(name string) (result entity.Station, err error) {
+	err = r.db.Where("name = ?", name).First(&result).Error
+	return result, err
 }
