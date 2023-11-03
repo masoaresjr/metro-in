@@ -8,17 +8,20 @@ import (
 
 // subwayLineControllerImpl implementation for SubwayLineController
 type subwayLineControllerImpl struct {
-	subwayService service.SubwayLineService
+	baseController BaseController
+	subwayService  service.SubwayLineService
 }
 
 // SubwayLineController interface for subway lines routes
 type SubwayLineController interface {
 	GetAll(*fiber.Ctx) error
+	GetByID(*fiber.Ctx) error
+	GetByCompany(*fiber.Ctx) error
 }
 
 // NewSubwayLineController constructor for SubwayLineController
 func NewSubwayLineController(dbClient *gorm.DB) SubwayLineController {
-	return &subwayLineControllerImpl{subwayService: service.NewSubwayLineService(dbClient)}
+	return &subwayLineControllerImpl{subwayService: service.NewSubwayLineService(dbClient), baseController: &baseControllerImpl{}}
 }
 
 // GetAll godoc
@@ -26,13 +29,8 @@ func (c *subwayLineControllerImpl) GetAll(*fiber.Ctx) error {
 	return nil
 }
 
-// GetByName godoc
-func (c *subwayLineControllerImpl) GetByName(*fiber.Ctx) error {
-	return nil
-}
-
-// GetByNumber godoc
-func (c *subwayLineControllerImpl) GetByNumber(*fiber.Ctx) error {
+// GetByID godoc
+func (c *subwayLineControllerImpl) GetByID(*fiber.Ctx) error {
 	return nil
 }
 

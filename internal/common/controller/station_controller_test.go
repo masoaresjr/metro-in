@@ -5,7 +5,6 @@ import (
 	"github.com/stretchr/testify/assert"
 	"metro-in/internal/common/service/mock"
 	"metro-in/test"
-	"net/http/httptest"
 	"testing"
 )
 
@@ -22,9 +21,9 @@ func TestNewStationController(t *testing.T) {
 
 func TestStationControllerGetByName(t *testing.T) {
 
-	stationController := stationControllerImpl{stationService: mock.NewStationServiceMock()}
+	stationController := stationControllerImpl{stationService: mock.NewStationServiceMock(), baseController: NewBaseController()}
 
-	tests := []test.HTTPTest{
+	tests := []controller.HTTPTest{
 		{
 			Description:  "get HTTP status 200",
 			Route:        "/station/corinthians-itaquera?isLogged=true",
@@ -50,10 +49,7 @@ func TestStationControllerGetByName(t *testing.T) {
 	app := fiber.New()
 	app.Get("/station/:name", authMiddleware, stationController.GetStationByName)
 
-	for _, httpTest := range tests {
-		resp, _ := app.Test(httptest.NewRequest("GET", httpTest.Route, nil), -1)
-		assert.Equalf(t, httpTest.ExpectedCode, resp.StatusCode, httpTest.Description)
-	}
+	controller.RunHttpTableDrivenTests(app, tests, t)
 }
 
 func authMiddleware(c *fiber.Ctx) error {

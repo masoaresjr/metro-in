@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 	"metro-in/internal/common/service"
@@ -9,6 +8,7 @@ import (
 
 // stationControllerImpl implementation for StationController
 type stationControllerImpl struct {
+	baseController BaseController
 	stationService service.StationService
 }
 
@@ -19,7 +19,8 @@ type StationController interface {
 
 // NewStationController constructor for StationController
 func NewStationController(dbClient *gorm.DB) StationController {
-	return &stationControllerImpl{stationService: service.NewStationService(dbClient)}
+	baseController := NewBaseController()
+	return &stationControllerImpl{stationService: service.NewStationService(dbClient), baseController: baseController}
 }
 
 // GetStationByName godoc
@@ -27,8 +28,8 @@ func (c *stationControllerImpl) GetStationByName(ctx *fiber.Ctx) error {
 
 	station, err := c.stationService.GetStationByName(ctx.Params("name"))
 	if err != nil {
-		return ctx.Status(fiber.StatusInternalServerError).SendString(fmt.Sprintf("Error: %s", err.Error()))
+		return c.baseController.RespondError(ctx, err)
 	}
 
-	return ctx.JSON(station)
+	return c.baseController.RespondSuccessWithBody(ctx, station)
 }
