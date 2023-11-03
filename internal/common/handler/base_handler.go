@@ -7,6 +7,7 @@ import (
 
 type baseControllerImpl struct{}
 
+// BaseController interface that deals with the http responses
 type BaseController interface {
 	RespondError(ctx *fiber.Ctx, err error) error
 	RespondSuccessWithBody(ctx *fiber.Ctx, result interface{}) error
@@ -19,8 +20,8 @@ func NewBaseController() BaseController {
 }
 
 func (h *baseControllerImpl) RespondError(c *fiber.Ctx, err error) error {
-	if h.isHttpError(err) {
-		return c.Status(err.(customerrors.HttpError).GetStatusCode()).SendString(err.Error())
+	if h.isHTTPError(err) {
+		return c.Status(err.(customerrors.HTTPError).GetStatusCode()).SendString(err.Error())
 	}
 
 	return c.Status(fiber.StatusInternalServerError).SendString(err.Error())
@@ -35,7 +36,7 @@ func (h *baseControllerImpl) RespondSuccessNoContent(c *fiber.Ctx) error {
 	return nil
 }
 
-func (h *baseControllerImpl) isHttpError(err error) bool {
-	_, ok := err.(customerrors.HttpError)
+func (h *baseControllerImpl) isHTTPError(err error) bool {
+	_, ok := err.(customerrors.HTTPError)
 	return ok
 }

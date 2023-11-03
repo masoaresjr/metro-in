@@ -41,7 +41,7 @@ func (h *subwayLineControllerImpl) GetByID(c *fiber.Ctx) error {
 	id, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
 		return h.baseController.RespondError(
-			c, &customerrors.InvalidParameterError{ ParameterType: "integer", ParameterName: "id" },
+			c, &customerrors.InvalidParameterError{ParameterType: "integer", ParameterName: "id"},
 		)
 	}
 
@@ -58,7 +58,7 @@ func (h *subwayLineControllerImpl) GetByCompanyID(c *fiber.Ctx) error {
 	id, err := strconv.Atoi(c.Params("company_id"))
 	if err != nil {
 		return h.baseController.RespondError(
-			c, &customerrors.InvalidParameterError{ ParameterType: "integer", ParameterName: "company_id" },
+			c, &customerrors.InvalidParameterError{ParameterType: "integer", ParameterName: "company_id"},
 		)
 	}
 

@@ -2,8 +2,8 @@ package customerrors
 
 //TODO repensar nome e estratégia
 
-// HttpError interface used to specify some errors as BadRequestErrors
-type HttpError interface {
+// HTTPError interface used to specify some errors as BadRequestErrors
+type HTTPError interface {
 	error
 	GetStatusCode() int
 }

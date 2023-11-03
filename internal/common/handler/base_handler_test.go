@@ -38,13 +38,13 @@ func TestBaseControllerImpl_RespondError(t *testing.T) {
 
 	app := fiber.New()
 	app.Get("/fake-route/http-error", func(c *fiber.Ctx) error {
-		return stationController.RespondError(c, &customerrors.EmptyParameterError{ ParameterName: "id" })
+		return stationController.RespondError(c, &customerrors.EmptyParameterError{ParameterName: "id"})
 	})
 	app.Get("/fake-route/unknown-error", func(c *fiber.Ctx) error {
 		return stationController.RespondError(c, errors.New("unexpected error"))
 	})
 
-	controller.RunHttpTableDrivenTests(app, tests, t)
+	controller.RunHTTPTableDrivenTests(app, tests, t)
 }
 
 func TestBaseControllerImpl_RespondSuccessWithBody(t *testing.T) {
@@ -60,10 +60,10 @@ func TestBaseControllerImpl_RespondSuccessWithBody(t *testing.T) {
 
 	app := fiber.New()
 	app.Get("/fake-route", func(c *fiber.Ctx) error {
-		return stationController.RespondSuccessWithBody(c, map[string]string{ "Test" : "Test" })
+		return stationController.RespondSuccessWithBody(c, map[string]string{"Test": "Test"})
 	})
 
-	controller.RunHttpTableDrivenTests(app, tests, t)
+	controller.RunHTTPTableDrivenTests(app, tests, t)
 }
 
 func TestBaseControllerImpl_RespondSuccessNoContent(t *testing.T) {
@@ -81,5 +81,5 @@ func TestBaseControllerImpl_RespondSuccessNoContent(t *testing.T) {
 		return stationController.RespondSuccessNoContent(c)
 	})
 
-	controller.RunHttpTableDrivenTests(app, tests, t)
+	controller.RunHTTPTableDrivenTests(app, tests, t)
 }

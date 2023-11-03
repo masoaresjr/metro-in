@@ -15,7 +15,8 @@ type HTTPTest struct {
 	ExpectedBody string
 }
 
-func RunHttpTableDrivenTests(app *fiber.App, tests []HTTPTest, t *testing.T) {
+// RunHTTPTableDrivenTests runs all http tests
+func RunHTTPTableDrivenTests(app *fiber.App, tests []HTTPTest, t *testing.T) {
 	for _, httpTest := range tests {
 		resp, _ := app.Test(httptest.NewRequest("GET", httpTest.Route, nil), -1)
 		assert.Equalf(t, httpTest.ExpectedCode, resp.StatusCode, httpTest.Description)

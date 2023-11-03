@@ -49,7 +49,7 @@ func TestStationControllerGetByName(t *testing.T) {
 	app := fiber.New()
 	app.Get("/station/:name", authMiddleware, stationController.GetStationByName)
 
-	controller.RunHttpTableDrivenTests(app, tests, t)
+	controller.RunHTTPTableDrivenTests(app, tests, t)
 }
 
 func authMiddleware(c *fiber.Ctx) error {
