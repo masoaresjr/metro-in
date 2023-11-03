@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/stretchr/testify/assert"
 	"metro-in/internal/common/service/mock"
+	"metro-in/test"
 	"net/http/httptest"
 	"testing"
 )
@@ -19,50 +20,46 @@ func TestNewStationController(t *testing.T) {
 	assert.Implements(t, (*StationController)(nil), stationController)
 }
 
-func TestGetByName(t *testing.T) {
+func TestStationControllerGetByName(t *testing.T) {
 
 	stationController := stationControllerImpl{ stationService: mock.NewStationServiceMock() }
 
-	tests := []struct {
-		description  string // description of the test case
-		route        string // route path to test
-		expectedCode int    // expected HTTP status code
-	}{
+	tests := []test.HttpTest {
 		{
-			description:  "get HTTP status 200",
-			route:        "/station/corinthians-itaquera?isLogged=true",
-			expectedCode: 200,
+			Description:  "get HTTP status 200",
+			Route:        "/station/corinthians-itaquera?isLogged=true",
+			ExpectedCode: 200,
 		},
 		{
-			description:  "get HTTP status 404, when route is incomplete",
-			route:        "/station/",
-			expectedCode: 404,
+			Description:  "get HTTP status 404, when route is incomplete",
+			Route:        "/station/",
+			ExpectedCode: 404,
 		},
 		{
-			description:  "get HTTP status 401, when user is not logged",
-			route:        "/station/corinthians-itaquera?isLogged=false",
-			expectedCode: 401,
+			Description:  "get HTTP status 401, when user is not logged",
+			Route:        "/station/corinthians-itaquera?isLogged=false",
+			ExpectedCode: 401,
 		},
 		{
-			description:  "Test service error", //TODO provavelmente remover
-			route:        "/station/patriarca?isLogged=true",
-			expectedCode: 500,
+			Description:  "Test service error",
+			Route:        "/station/patriarca?isLogged=true",
+			ExpectedCode: 500,
 		},
 	}
 
 	app := fiber.New()
 	app.Get("/station/:name", authMiddleware, stationController.GetByName)
 
-	for _, test := range tests {
-		resp, _ := app.Test(httptest.NewRequest("GET", test.route, nil), -1)
-		assert.Equalf(t, test.expectedCode, resp.StatusCode, test.description)
+	for _, httpTest := range tests {
+		resp, _ := app.Test(httptest.NewRequest("GET", httpTest.Route, nil), -1)
+		assert.Equalf(t, httpTest.ExpectedCode, resp.StatusCode, httpTest.Description)
 	}
 }
 
 func authMiddleware(c *fiber.Ctx) error {
 
-	//isLogged is at the queryParams just for tests purposes
-	//at the real scenario there are sessions and tokens
+	//IsLogged is inside the queryParams just for tests purposes.
+	//At the real scenario there are sessions and tokens
 	isUserLoggedIn := c.Query("isLogged")
 
 	if isUserLoggedIn == "false" {
