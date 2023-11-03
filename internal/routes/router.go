@@ -5,6 +5,7 @@ import (
 	"gorm.io/gorm"
 	"log"
 	"metro-in/internal/common/controller"
+	"os"
 )
 
 var subwayLineController controller.SubwayLineController
@@ -21,7 +22,7 @@ func StartRoutes(dbClient *gorm.DB) {
 	startLineRoutes(app)
 	startStationRoutes(app)
 
-	err := app.Listen(":3000")
+	err := app.Listen(":" + os.Getenv("APP_PORT"))
 
 	if err != nil {
 		log.Fatalf("Erro ao iniciar o servidor: %v", err)
