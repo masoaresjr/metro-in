@@ -1,0 +1,16 @@
+INSERT INTO subway_lines (id, created_at, updated_at, deleted_at, number, name) VALUES (1, NOW(), NOW(), NULL, 1, 'Azul');
+INSERT INTO subway_lines (id, created_at, updated_at, deleted_at, number, name) VALUES (2, NOW(), NOW(), NULL, 2, 'Verde');
+INSERT INTO subway_lines (id, created_at, updated_at, deleted_at, number, name) VALUES (3, NOW(), NOW(), NULL, 3, 'Vermelha');
+INSERT INTO subway_lines (id, created_at, updated_at, deleted_at, number, name) VALUES (4, NOW(), NOW(), NULL, 4, 'Amarela');
+INSERT INTO subway_lines (id, created_at, updated_at, deleted_at, number, name) VALUES (5, NOW(), NOW(), NULL, 5, 'Lilás');
+INSERT INTO subway_lines (id, created_at, updated_at, deleted_at, number, name) VALUES (6, NOW(), NOW(), NULL, 6, 'Laranja');
+INSERT INTO subway_lines (id, created_at, updated_at, deleted_at, number, name) VALUES (7, NOW(), NOW(), NULL, 7, 'Rubi');
+INSERT INTO subway_lines (id, created_at, updated_at, deleted_at, number, name) VALUES (8, NOW(), NOW(), NULL, 8, 'Diamante');
+INSERT INTO subway_lines (id, created_at, updated_at, deleted_at, number, name) VALUES (9, NOW(), NOW(), NULL, 9, 'Esmeralda');
+INSERT INTO subway_lines (id, created_at, updated_at, deleted_at, number, name) VALUES (10, NOW(), NOW(), NULL, 10, 'Turquesa');
+INSERT INTO subway_lines (id, created_at, updated_at, deleted_at, number, name) VALUES (11, NOW(), NOW(), NULL, 11, 'Coral');
+INSERT INTO subway_lines (id, created_at, updated_at, deleted_at, number, name) VALUES (12, NOW(), NOW(), NULL, 12, 'Safira');
+INSERT INTO subway_lines (id, created_at, updated_at, deleted_at, number, name) VALUES (13, NOW(), NOW(), NULL, 13, 'Jade');
+INSERT INTO subway_lines (id, created_at, updated_at, deleted_at, number, name) VALUES (14, NOW(), NOW(), NULL, 15, 'Prata');
+INSERT INTO subway_lines (id, created_at, updated_at, deleted_at, number, name) VALUES (15, NOW(), NOW(), NULL, 17, 'Ouro');
+INSERT INTO subway_lines (id, created_at, updated_at, deleted_at, number, name) VALUES (16, NOW(), NOW(), NULL, 18, 'Bronze');

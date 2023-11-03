@@ -10,7 +10,7 @@ import (
 	"os"
 )
 
-var context = "Database"
+const databaseContext = "Database"
 
 var tables = []interface{}{
 	&entity.SubwayLineStation{},
@@ -32,12 +32,16 @@ func ConnectDb() (*gorm.DB, error) {
 	})
 
 	if err != nil {
-		return nil, errors.Error{Context: context, Message: "Failed to connect to database", Err: err}
+		return nil, errors.Error{Context: databaseContext, Message: "Failed to connect to database", Err: err}
 	}
 
 	err = autoMigrateTables(db)
 	if err != nil {
-		return nil, errors.Error{Context: context, Message: "Failed during migrations", Err: err}
+		return nil, errors.Error{Context: databaseContext, Message: "Failed during migrations", Err: err}
+	}
+
+	if err = runMigrations(db); err != nil {
+		return nil, err
 	}
 
 	return db, nil
