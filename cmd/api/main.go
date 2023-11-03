@@ -17,5 +17,10 @@ func startApp() {
 		return
 	}
 
+	if err = database.RunMigrations(db); err != nil {
+		log.Info(err.Error())
+		return
+	}
+
 	routes.StartRoutes(db)
 }

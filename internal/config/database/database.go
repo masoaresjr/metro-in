@@ -5,18 +5,11 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"metro-in/internal/common/entity"
 	"metro-in/internal/common/errors"
 	"os"
 )
 
 const databaseContext = "Database"
-
-var tables = []interface{}{
-	&entity.SubwayLineStation{},
-	&entity.Station{},
-	&entity.SubwayLine{},
-}
 
 // ConnectDb initiate db connection with the given .env variables
 func ConnectDb() (*gorm.DB, error) {
@@ -33,15 +26,6 @@ func ConnectDb() (*gorm.DB, error) {
 
 	if err != nil {
 		return nil, errors.Error{Context: databaseContext, Message: "Failed to connect to database", Err: err}
-	}
-
-	err = autoMigrateTables(db)
-	if err != nil {
-		return nil, errors.Error{Context: databaseContext, Message: "Failed during migrations", Err: err}
-	}
-
-	if err = runMigrations(db); err != nil {
-		return nil, err
 	}
 
 	return db, nil

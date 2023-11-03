@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"gorm.io/gorm"
 	"io/fs"
+	"metro-in/internal/common/entity"
 	"metro-in/internal/common/errors"
 	"os"
 	"path/filepath"
@@ -20,7 +21,18 @@ type Migration struct {
 	Query string
 }
 
-func runMigrations(db *gorm.DB) error {
+var tables = []interface{}{
+	&entity.SubwayLineStation{},
+	&entity.Station{},
+	&entity.SubwayLine{},
+}
+
+func RunMigrations(db *gorm.DB) error {
+
+	if err := autoMigrateTables(db); err != nil {
+		return errors.Error{Context: migrationContext, Message: "Failed during migrations", Err: err}
+	}
+
 	if err := db.AutoMigrate(&Migration{}); err != nil {
 		return errors.Error{Context: migrationContext, Message: "Could not create Migrations Table", Err: err}
 	}
