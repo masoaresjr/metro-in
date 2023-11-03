@@ -48,7 +48,7 @@ func TestStationControllerGetByName(t *testing.T) {
 	}
 
 	app := fiber.New()
-	app.Get("/station/:name", authMiddleware, stationController.GetByName)
+	app.Get("/station/:name", authMiddleware, stationController.GetStationByName)
 
 	for _, httpTest := range tests {
 		resp, _ := app.Test(httptest.NewRequest("GET", httpTest.Route, nil), -1)

@@ -14,7 +14,7 @@ type stationControllerImpl struct {
 
 // StationController interface for subway lines routes
 type StationController interface {
-	GetByName(*fiber.Ctx) error
+	GetStationByName(*fiber.Ctx) error
 }
 
 // NewStationController constructor for StationController
@@ -23,7 +23,7 @@ func NewStationController(dbClient *gorm.DB) StationController {
 }
 
 // GetByName godoc
-func (c *stationControllerImpl) GetByName(ctx *fiber.Ctx) error {
+func (c *stationControllerImpl) GetStationByName(ctx *fiber.Ctx) error {
 
 	station, err := c.stationService.GetStationByName(ctx.Params("name"))
 	if err != nil {

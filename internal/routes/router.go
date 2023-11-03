@@ -69,5 +69,5 @@ func startLineRoutes(app *fiber.App) {
 func startStationRoutes(app *fiber.App) {
 	stationRouter := app.Group("station")
 
-	stationRouter.Get("/:name", authMiddleware, stationController.GetByName)
+	stationRouter.Get("/:name", authMiddleware, stationController.GetStationByName)
 }
