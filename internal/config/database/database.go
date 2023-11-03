@@ -30,16 +30,3 @@ func ConnectDb() (*gorm.DB, error) {
 
 	return db, nil
 }
-
-func autoMigrateTables(db *gorm.DB) error {
-	for _, table := range tables {
-		if err := migrateTable(db, table); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func migrateTable(db *gorm.DB, entity interface{}) error {
-	return db.AutoMigrate(entity)
-}

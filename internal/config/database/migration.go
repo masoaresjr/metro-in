@@ -57,6 +57,19 @@ func RunMigrations(db *gorm.DB) error {
 	return nil
 }
 
+func autoMigrateTables(db *gorm.DB) error {
+	for _, table := range tables {
+		if err := migrateTable(db, table); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func migrateTable(db *gorm.DB, entity interface{}) error {
+	return db.AutoMigrate(entity)
+}
+
 func runMigration(migration *Migration, db *gorm.DB) error {
 
 	isNew, err := isNewMigration(migration, db)
