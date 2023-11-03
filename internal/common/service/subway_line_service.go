@@ -5,9 +5,9 @@ import (
 	"metro-in/internal/common/repository"
 )
 
-// SubwayServiceImpl implementation for SubwayLineService
-type SubwayServiceImpl struct {
-	subwayRepository repository.SubwayLineRepository
+// SubwayLineServiceImpl implementation for SubwayLineService
+type SubwayLineServiceImpl struct {
+	subwayLineRepository repository.SubwayLineRepository
 }
 
 // SubwayLineService interface for subway line service
@@ -16,5 +16,5 @@ type SubwayLineService interface {
 
 // NewSubwayLineService constructor for SubwayLineService
 func NewSubwayLineService(dbClient *gorm.DB) SubwayLineService {
-	return &SubwayServiceImpl{subwayRepository: repository.NewSubwayLineRepository(dbClient)}
+	return &SubwayLineServiceImpl{subwayLineRepository: repository.NewSubwayLineRepository(dbClient)}
 }

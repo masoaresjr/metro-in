@@ -15,7 +15,7 @@ import (
 const migrationsPath = "internal/config/database/migrations"
 const migrationContext = "migration"
 
-//Migration entity
+// Migration entity
 type Migration struct {
 	ID    string
 	Query string
@@ -27,6 +27,7 @@ var tables = []interface{}{
 	&entity.SubwayLine{},
 }
 
+// RunMigrations runs all autoMigrates and new migrations listed in database/migrations
 func RunMigrations(db *gorm.DB) error {
 
 	if err := autoMigrateTables(db); err != nil {

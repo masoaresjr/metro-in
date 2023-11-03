@@ -9,11 +9,13 @@ import (
 )
 
 var subwayLineController controller.SubwayLineController
+var stationController controller.StationController
 
 // StartRoutes start http routes and listen to then
 func StartRoutes(dbClient *gorm.DB) {
 
 	subwayLineController = controller.NewSubwayLineController(dbClient)
+	stationController = controller.NewStationController(dbClient)
 
 	app := fiber.New()
 
@@ -68,7 +70,5 @@ func startLineRoutes(app *fiber.App) {
 func startStationRoutes(app *fiber.App) {
 	stationRouter := app.Group("station")
 
-	stationRouter.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello World")
-	})
+	stationRouter.Get("/:name", authMiddleware, stationController.GetByName)
 }
