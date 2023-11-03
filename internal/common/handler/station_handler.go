@@ -1,4 +1,4 @@
-package controller
+package handler
 
 import (
 	"github.com/gofiber/fiber/v2"
@@ -24,12 +24,12 @@ func NewStationController(dbClient *gorm.DB) StationController {
 }
 
 // GetStationByName godoc
-func (c *stationControllerImpl) GetStationByName(ctx *fiber.Ctx) error {
+func (h *stationControllerImpl) GetStationByName(c *fiber.Ctx) error {
 
-	station, err := c.stationService.GetStationByName(ctx.Params("name"))
+	station, err := h.stationService.GetStationByName(c.Params("name"))
 	if err != nil {
-		return c.baseController.RespondError(ctx, err)
+		return h.baseController.RespondError(c, err)
 	}
 
-	return c.baseController.RespondSuccessWithBody(ctx, station)
+	return h.baseController.RespondSuccessWithBody(c, station)
 }
