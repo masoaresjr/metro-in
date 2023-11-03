@@ -40,7 +40,7 @@ func TestBaseControllerRespondError(t *testing.T) {
 	app := fiber.New()
 
 	app.Get("/fake-route/http-error", func(c *fiber.Ctx) error {
-		return stationController.RespondError(c, &customerrors.NullParameterError{ ParameterName: "id" })
+		return stationController.RespondError(c, &customerrors.EmptyParameterError{ ParameterName: "id" })
 	})
 
 	app.Get("/fake-route/unknown-error", func(c *fiber.Ctx) error {

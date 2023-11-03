@@ -13,6 +13,9 @@ type subwayLineRepositoryImpl struct {
 
 // SubwayLineRepository interface for subway lines at database
 type SubwayLineRepository interface {
+	GetAll() (subwayLines []entity.SubwayLine, err error)
+	GetByID(id uint) (subwayLine entity.SubwayLine, err error)
+	GetByCompanyID(companyID uint) (subwayLine []entity.SubwayLine, err error)
 }
 
 // NewSubwayLineRepository constructor for SubwayLineRepository
@@ -29,7 +32,7 @@ func (c *subwayLineRepositoryImpl) GetAll() (subwayLines []entity.SubwayLine, er
 // GetByID godoc
 func (c *subwayLineRepositoryImpl) GetByID(id uint) (subwayLine entity.SubwayLine, err error) {
 	if id == 0 {
-		err = &customerrors.NullParameterError{ParameterName: "id"}
+		err = &customerrors.EmptyParameterError{ParameterName: "id"}
 	}
 	err = c.db.Where("id = ?", id).First(&subwayLine).Error
 	return
@@ -38,7 +41,7 @@ func (c *subwayLineRepositoryImpl) GetByID(id uint) (subwayLine entity.SubwayLin
 // GetByCompanyID godoc
 func (c *subwayLineRepositoryImpl) GetByCompanyID(companyID uint) (subwayLine []entity.SubwayLine, err error) {
 	if companyID == 0 {
-		err = &customerrors.NullParameterError{ParameterName: "company_id"}
+		err = &customerrors.EmptyParameterError{ParameterName: "company_id"}
 	}
 	return []entity.SubwayLine{}, nil
 }

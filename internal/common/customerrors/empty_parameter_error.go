@@ -7,17 +7,17 @@ import (
 
 //TODO repensar nome e estratégia
 
-// NullParameterError implements error interface for errors where the mandatory param is null or empty
-type NullParameterError struct {
+// EmptyParameterError implements error interface for errors where the mandatory param is null or empty
+type EmptyParameterError struct {
 	ParameterName interface{}
 }
 
-// Error returns a message for NullParameterError.
-func (e *NullParameterError) Error() string {
+// Error returns a message for EmptyParameterError.
+func (e *EmptyParameterError) Error() string {
 	return fmt.Sprintf("The parameter %v is mandatory and can't be empty or null", e.ParameterName)
 }
 
 // GetStatusCode returns a http status code
-func (e *NullParameterError) GetStatusCode() int {
+func (e *EmptyParameterError) GetStatusCode() int {
 	return fiber.StatusBadRequest
 }
