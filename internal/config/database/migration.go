@@ -30,7 +30,7 @@ var tables = []interface{}{
 func RunMigrations(db *gorm.DB) error {
 
 	if err := autoMigrateTables(db); err != nil {
-		return errors.Error{Context: migrationContext, Message: "Failed during migrations", Err: err}
+		return errors.Error{Context: migrationContext, Message: "Failed during autoMigrate", Err: err}
 	}
 
 	if err := db.AutoMigrate(&Migration{}); err != nil {
