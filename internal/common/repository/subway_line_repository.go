@@ -4,8 +4,8 @@ import (
 	"gorm.io/gorm"
 )
 
-// SubwayLineRepositoryImpl implementation for SubwayLineRepository
-type SubwayLineRepositoryImpl struct {
+// subwayLineRepositoryImpl implementation for SubwayLineRepository
+type subwayLineRepositoryImpl struct {
 	db *gorm.DB
 }
 
@@ -15,5 +15,5 @@ type SubwayLineRepository interface {
 
 // NewSubwayLineRepository constructor for SubwayLineRepository
 func NewSubwayLineRepository(dbClient *gorm.DB) SubwayLineRepository {
-	return &SubwayLineRepositoryImpl{db: dbClient}
+	return &subwayLineRepositoryImpl{db: dbClient}
 }

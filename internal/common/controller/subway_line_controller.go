@@ -6,8 +6,8 @@ import (
 	"metro-in/internal/common/service"
 )
 
-// SubwayLineControllerImpl implementation for SubwayLineController
-type SubwayLineControllerImpl struct {
+// subwayLineControllerImpl implementation for SubwayLineController
+type subwayLineControllerImpl struct {
 	subwayService service.SubwayLineService
 }
 
@@ -18,10 +18,10 @@ type SubwayLineController interface {
 
 // NewSubwayLineController constructor for SubwayLineController
 func NewSubwayLineController(dbClient *gorm.DB) SubwayLineController {
-	return &SubwayLineControllerImpl{subwayService: service.NewSubwayLineService(dbClient)}
+	return &subwayLineControllerImpl{subwayService: service.NewSubwayLineService(dbClient)}
 }
 
 // GetAll godoc
-func (c *SubwayLineControllerImpl) GetAll(*fiber.Ctx) error {
+func (c *subwayLineControllerImpl) GetAll(*fiber.Ctx) error {
 	return nil
 }

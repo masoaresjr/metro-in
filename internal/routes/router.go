@@ -37,7 +37,6 @@ func authMiddleware(c *fiber.Ctx) error {
 	isUserLoggedIn := true
 
 	if !isUserLoggedIn {
-		// O usuário não está logado, então bloqueie a solicitação com um código de status 401
 		return c.Status(fiber.StatusUnauthorized).SendString("Acesso não autorizado")
 	}
 

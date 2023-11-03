@@ -1,5 +1,13 @@
 mode: set
-metro-in/internal/common/service/subway_line_service.go:18.74,20.2 1 1
-metro-in/internal/common/repository/subway_line_repository.go:15.80,17.2 1 1
-metro-in/internal/common/controller/subway_line_controller.go:20.80,22.2 1 1
+metro-in/internal/common/controller/station_controller.go:21.64,23.2 1 1
+metro-in/internal/common/controller/station_controller.go:26.65,29.16 2 1
+metro-in/internal/common/controller/station_controller.go:29.16,31.3 1 0
+metro-in/internal/common/controller/station_controller.go:33.2,35.12 2 1
+metro-in/internal/common/controller/subway_line_controller.go:20.70,22.2 1 1
 metro-in/internal/common/controller/subway_line_controller.go:25.61,27.2 1 0
+metro-in/internal/common/repository/station_repository.go:19.64,21.2 1 1
+metro-in/internal/common/repository/station_repository.go:23.88,25.2 1 0
+metro-in/internal/common/repository/subway_line_repository.go:17.70,19.2 1 1
+metro-in/internal/common/service/station_service.go:20.58,22.2 1 1
+metro-in/internal/common/service/station_service.go:24.85,26.2 1 0
+metro-in/internal/common/service/subway_line_service.go:18.64,20.2 1 1

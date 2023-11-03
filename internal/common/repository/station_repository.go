@@ -2,18 +2,24 @@ package repository
 
 import (
 	"gorm.io/gorm"
+	"metro-in/internal/common/entity"
 )
 
-// StationRepositoryImpl implementation for StationRepository
-type StationRepositoryImpl struct {
+// stationRepositoryImpl implementation for StationRepository
+type stationRepositoryImpl struct {
 	db *gorm.DB
 }
 
 // StationRepository interface for stations at database
 type StationRepository interface {
+	GetStationByName(name string) (*entity.Station, error)
 }
 
 // NewStationRepository constructor for StationRepository
 func NewStationRepository(dbClient *gorm.DB) StationRepository {
-	return &StationRepositoryImpl{db: dbClient}
+	return &stationRepositoryImpl{db: dbClient}
+}
+
+func (s *stationRepositoryImpl) GetStationByName(name string) (*entity.Station, error) {
+	return &entity.Station{}, nil
 }
