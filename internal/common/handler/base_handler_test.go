@@ -20,10 +20,9 @@ func TestBaseController(t *testing.T) {
 	assert.Implements(t, (*BaseController)(nil), baseController)
 }
 
-func TestBaseControllerRespondError(t *testing.T) {
+func TestBaseControllerImpl_RespondError(t *testing.T) {
 
 	stationController := baseControllerImpl{}
-
 	tests := []controller.HTTPTest{
 		{
 			Description:  "get HTTP status 404, when route is incomplete",
@@ -38,11 +37,9 @@ func TestBaseControllerRespondError(t *testing.T) {
 	}
 
 	app := fiber.New()
-
 	app.Get("/fake-route/http-error", func(c *fiber.Ctx) error {
 		return stationController.RespondError(c, &customerrors.EmptyParameterError{ ParameterName: "id" })
 	})
-
 	app.Get("/fake-route/unknown-error", func(c *fiber.Ctx) error {
 		return stationController.RespondError(c, errors.New("unexpected error"))
 	})
@@ -50,10 +47,9 @@ func TestBaseControllerRespondError(t *testing.T) {
 	controller.RunHttpTableDrivenTests(app, tests, t)
 }
 
-func TestBaseControllerRespondSuccess(t *testing.T) {
+func TestBaseControllerImpl_RespondSuccessWithBody(t *testing.T) {
 
 	stationController := baseControllerImpl{}
-
 	tests := []controller.HTTPTest{
 		{
 			Description:  "get HTTP status 200",
@@ -63,9 +59,26 @@ func TestBaseControllerRespondSuccess(t *testing.T) {
 	}
 
 	app := fiber.New()
-
 	app.Get("/fake-route", func(c *fiber.Ctx) error {
 		return stationController.RespondSuccessWithBody(c, map[string]string{ "Test" : "Test" })
+	})
+
+	controller.RunHttpTableDrivenTests(app, tests, t)
+}
+
+func TestBaseControllerImpl_RespondSuccessNoContent(t *testing.T) {
+	stationController := baseControllerImpl{}
+	tests := []controller.HTTPTest{
+		{
+			Description:  "get HTTP status 200",
+			Route:        "/fake-route",
+			ExpectedCode: 204,
+		},
+	}
+
+	app := fiber.New()
+	app.Get("/fake-route", func(c *fiber.Ctx) error {
+		return stationController.RespondSuccessNoContent(c)
 	})
 
 	controller.RunHttpTableDrivenTests(app, tests, t)
