@@ -43,6 +43,11 @@ func TestGetByName(t *testing.T) {
 			route:        "/station/corinthians-itaquera?isLogged=false",
 			expectedCode: 401,
 		},
+		{
+			description:  "Test service error", //TODO provavelmente remover
+			route:        "/station/patriarca?isLogged=true",
+			expectedCode: 500,
+		},
 	}
 
 	app := fiber.New()

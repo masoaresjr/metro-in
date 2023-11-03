@@ -5,7 +5,7 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"metro-in/internal/common/errors"
+	"metro-in/internal/common/custom_errors"
 	"os"
 )
 
@@ -25,7 +25,7 @@ func ConnectDb() (*gorm.DB, error) {
 	})
 
 	if err != nil {
-		return nil, errors.Error{Context: databaseContext, Message: "Failed to connect to database", Err: err}
+		return nil, custom_errors.Error{Context: databaseContext, Message: "Failed to connect to database", Err: err}
 	}
 
 	return db, nil

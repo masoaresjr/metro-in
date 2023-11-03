@@ -1,6 +1,8 @@
 package mock
 
 import (
+	"errors"
+	"metro-in/internal/common/custom_errors"
 	"metro-in/internal/common/entity"
 	"metro-in/internal/common/repository"
 	"metro-in/internal/common/repository/mock"
@@ -18,5 +20,8 @@ func NewStationServiceMock() service.StationService {
 }
 
 func (s *stationServiceMock) GetStationByName(name string) (*entity.Station, error) {
-	return &entity.Station{}, nil
+	if name == "corinthians-itaquera" {
+		return &entity.Station{}, nil
+	}
+	return nil, custom_errors.Error{ Context: "Mock", Message: "Mocked Error", Err: errors.New("mocked")}
 }

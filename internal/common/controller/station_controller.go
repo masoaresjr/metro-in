@@ -30,7 +30,5 @@ func (c *stationControllerImpl) GetByName(ctx *fiber.Ctx) error {
 		return ctx.Status(fiber.StatusInternalServerError).SendString(fmt.Sprintf("Error: %s", err.Error()))
 	}
 
-	err = ctx.JSON(station)
-
-	return err
+	return ctx.JSON(station)
 }
