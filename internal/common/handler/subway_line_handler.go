@@ -62,7 +62,7 @@ func (h *subwayLineControllerImpl) GetByCompanyID(c *fiber.Ctx) error {
 		)
 	}
 
-	response, err := h.subwayLineService.GetByID(uint(id))
+	response, err := h.subwayLineService.GetByCompanyID(uint(id))
 	if err != nil {
 		return h.baseController.RespondError(c, err)
 	}

@@ -26,7 +26,7 @@ func (c *subwayLineServiceMock) GetAll() ([]entity.SubwayLine, error) {
 				ID: 1,
 			},
 			CompanyID: 2,
-			Name: "Vermelha",
+			Name:      "Vermelha",
 		},
 	}, nil
 }
@@ -38,14 +38,19 @@ func (c *subwayLineServiceMock) GetByID(id uint) (entity.SubwayLine, error) {
 			ID: 1,
 		},
 		CompanyID: 2,
-		Name: "Vermelha",
+		Name:      "Vermelha",
 	}, nil
 }
 
 // GetByCompanyID godoc
 func (c *subwayLineServiceMock) GetByCompanyID(companyID uint) ([]entity.SubwayLine, error) {
-	if companyID == 0 {
-
-	}
-	return []entity.SubwayLine{}, nil
+	return []entity.SubwayLine{
+		{
+			Model: gorm.Model{
+				ID: 1,
+			},
+			CompanyID: 2,
+			Name:      "Vermelha",
+		},
+	}, nil
 }
