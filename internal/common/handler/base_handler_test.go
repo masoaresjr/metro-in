@@ -25,7 +25,7 @@ func TestBaseControllerImpl_RespondError(t *testing.T) {
 	stationController := baseControllerImpl{}
 	tests := []controller.HTTPTest{
 		{
-			Description:  "get HTTP status 404, when route is incomplete",
+			Description:  "get HTTP status 400",
 			Route:        "/fake-route/http-error",
 			ExpectedCode: 400,
 		},

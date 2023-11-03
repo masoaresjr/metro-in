@@ -47,20 +47,7 @@ func TestStationControllerGetByName(t *testing.T) {
 	}
 
 	app := fiber.New()
-	app.Get("/station/:name", authMiddleware, stationController.GetStationByName)
+	app.Get("/station/:name", controller.AuthMiddleware, stationController.GetStationByName)
 
 	controller.RunHTTPTableDrivenTests(app, tests, t)
-}
-
-func authMiddleware(c *fiber.Ctx) error {
-
-	//IsLogged is inside the queryParams just for tests purposes.
-	//At the real scenario there are sessions and tokens
-	isUserLoggedIn := c.Query("isLogged")
-
-	if isUserLoggedIn == "false" {
-		return c.Status(fiber.StatusUnauthorized).SendString("Acesso não autorizado")
-	}
-
-	return c.Next()
 }

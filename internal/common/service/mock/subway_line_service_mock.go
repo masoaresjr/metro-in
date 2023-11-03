@@ -1,6 +1,7 @@
 package mock
 
 import (
+	"gorm.io/gorm"
 	"metro-in/internal/common/entity"
 	"metro-in/internal/common/repository"
 	"metro-in/internal/common/repository/mock"
@@ -19,16 +20,26 @@ func NewSubwayLineServiceMock() service.SubwayLineService {
 
 // GetAll godoc
 func (c *subwayLineServiceMock) GetAll() ([]entity.SubwayLine, error) {
-
-	return []entity.SubwayLine{}, nil
+	return []entity.SubwayLine{
+		{
+			Model: gorm.Model{
+				ID: 1,
+			},
+			CompanyID: 2,
+			Name: "Vermelha",
+		},
+	}, nil
 }
 
 // GetByID godoc
 func (c *subwayLineServiceMock) GetByID(id uint) (entity.SubwayLine, error) {
-	if id == 0 {
-
-	}
-	return entity.SubwayLine{}, nil
+	return entity.SubwayLine{
+		Model: gorm.Model{
+			ID: 1,
+		},
+		CompanyID: 2,
+		Name: "Vermelha",
+	}, nil
 }
 
 // GetByCompanyID godoc

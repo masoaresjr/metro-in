@@ -10,8 +10,8 @@ import (
 
 // subwayLineControllerImpl implementation for SubwayLineController
 type subwayLineControllerImpl struct {
-	baseController BaseController
-	subwayService  service.SubwayLineService
+	baseController    BaseController
+	subwayLineService service.SubwayLineService
 }
 
 // SubwayLineController interface for subway lines routes
@@ -23,12 +23,12 @@ type SubwayLineController interface {
 
 // NewSubwayLineController constructor for SubwayLineController
 func NewSubwayLineController(dbClient *gorm.DB) SubwayLineController {
-	return &subwayLineControllerImpl{subwayService: service.NewSubwayLineService(dbClient), baseController: &baseControllerImpl{}}
+	return &subwayLineControllerImpl{subwayLineService: service.NewSubwayLineService(dbClient), baseController: &baseControllerImpl{}}
 }
 
 // GetAll godoc
 func (h *subwayLineControllerImpl) GetAll(c *fiber.Ctx) error {
-	response, err := h.subwayService.GetAll()
+	response, err := h.subwayLineService.GetAll()
 	if err != nil {
 		return h.baseController.RespondError(c, err)
 	}
@@ -45,7 +45,7 @@ func (h *subwayLineControllerImpl) GetByID(c *fiber.Ctx) error {
 		)
 	}
 
-	response, err := h.subwayService.GetByID(uint(id))
+	response, err := h.subwayLineService.GetByID(uint(id))
 	if err != nil {
 		return h.baseController.RespondError(c, err)
 	}
@@ -62,7 +62,7 @@ func (h *subwayLineControllerImpl) GetByCompanyID(c *fiber.Ctx) error {
 		)
 	}
 
-	response, err := h.subwayService.GetByID(uint(id))
+	response, err := h.subwayLineService.GetByID(uint(id))
 	if err != nil {
 		return h.baseController.RespondError(c, err)
 	}
