@@ -2,7 +2,7 @@ package service
 
 import (
 	"gorm.io/gorm"
-	"metro-in/internal/common/custom_errors"
+	"metro-in/internal/common/customerrors"
 	"metro-in/internal/common/entity"
 	"metro-in/internal/common/repository"
 )
@@ -24,7 +24,7 @@ func NewStationService(dbClient *gorm.DB) StationService {
 
 func (s *stationServiceImpl) GetStationByName(name string) (entity.Station, error) {
 	if name == "" {
-		return entity.Station{}, custom_errors.Error{ Context: "", Message: ""}
+		return entity.Station{}, customerrors.Error{Context: "", Message: ""}
 	}
 
 	return s.stationRepository.GetStationByName(name)

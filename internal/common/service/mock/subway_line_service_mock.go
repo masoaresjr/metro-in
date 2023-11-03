@@ -13,5 +13,5 @@ type subwayLineServiceMock struct {
 
 // NewSubwayLineServiceMock generate a mocked implementation of service.SubwayLineService
 func NewSubwayLineServiceMock() service.SubwayLineService {
-	return &subwayLineServiceMock{ subwayLineRepository: mock.NewSubwayLineRepositoryMock() }
+	return &subwayLineServiceMock{subwayLineRepository: mock.NewSubwayLineRepositoryMock()}
 }

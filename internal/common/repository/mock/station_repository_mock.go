@@ -6,7 +6,7 @@ import (
 )
 
 // stationRepositoryMock mocked implementation for repository.StationRepository
-type stationRepositoryMock struct {}
+type stationRepositoryMock struct{}
 
 // NewStationRepositoryMock generate a mocked implementation of repository.StationRepository
 func NewStationRepositoryMock() repository.StationRepository {

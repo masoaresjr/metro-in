@@ -2,7 +2,7 @@ package mock
 
 import (
 	"errors"
-	"metro-in/internal/common/custom_errors"
+	"metro-in/internal/common/customerrors"
 	"metro-in/internal/common/entity"
 	"metro-in/internal/common/repository"
 	"metro-in/internal/common/repository/mock"
@@ -16,12 +16,12 @@ type stationServiceMock struct {
 
 // NewStationServiceMock generate a mocked implementation of service.StationService
 func NewStationServiceMock() service.StationService {
-	return &stationServiceMock{ stationRepository: mock.NewStationRepositoryMock() }
+	return &stationServiceMock{stationRepository: mock.NewStationRepositoryMock()}
 }
 
 func (s *stationServiceMock) GetStationByName(name string) (entity.Station, error) {
 	if name == "corinthians-itaquera" {
 		return entity.Station{}, nil
 	}
-	return entity.Station{}, custom_errors.Error{ Context: "Mock", Message: "Mocked Error", Err: errors.New("mocked")}
+	return entity.Station{}, customerrors.Error{Context: "Mock", Message: "Mocked Error", Err: errors.New("mocked")}
 }

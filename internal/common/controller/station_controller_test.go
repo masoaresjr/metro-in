@@ -22,9 +22,9 @@ func TestNewStationController(t *testing.T) {
 
 func TestStationControllerGetByName(t *testing.T) {
 
-	stationController := stationControllerImpl{ stationService: mock.NewStationServiceMock() }
+	stationController := stationControllerImpl{stationService: mock.NewStationServiceMock()}
 
-	tests := []test.HttpTest {
+	tests := []test.HTTPTest{
 		{
 			Description:  "get HTTP status 200",
 			Route:        "/station/corinthians-itaquera?isLogged=true",
