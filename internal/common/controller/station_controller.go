@@ -22,7 +22,7 @@ func NewStationController(dbClient *gorm.DB) StationController {
 	return &stationControllerImpl{stationService: service.NewStationService(dbClient)}
 }
 
-// GetByName godoc
+// GetStationByName godoc
 func (c *stationControllerImpl) GetStationByName(ctx *fiber.Ctx) error {
 
 	station, err := c.stationService.GetStationByName(ctx.Params("name"))

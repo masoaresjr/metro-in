@@ -22,6 +22,7 @@ type Migration struct {
 }
 
 var tables = []interface{}{
+	&entity.Company{},
 	&entity.SubwayLineStation{},
 	&entity.Station{},
 	&entity.SubwayLine{},

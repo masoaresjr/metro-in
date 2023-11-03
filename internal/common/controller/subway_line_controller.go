@@ -25,3 +25,18 @@ func NewSubwayLineController(dbClient *gorm.DB) SubwayLineController {
 func (c *subwayLineControllerImpl) GetAll(*fiber.Ctx) error {
 	return nil
 }
+
+// GetByName godoc
+func (c *subwayLineControllerImpl) GetByName(*fiber.Ctx) error {
+	return nil
+}
+
+// GetByNumber godoc
+func (c *subwayLineControllerImpl) GetByNumber(*fiber.Ctx) error {
+	return nil
+}
+
+// GetByCompany godoc
+func (c *subwayLineControllerImpl) GetByCompany(*fiber.Ctx) error {
+	return nil
+}
