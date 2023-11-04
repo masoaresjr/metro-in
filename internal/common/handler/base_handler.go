@@ -20,11 +20,17 @@ func NewBaseController() BaseController {
 }
 
 func (h *baseControllerImpl) RespondError(c *fiber.Ctx, err error) error {
+	var statusCode = fiber.StatusInternalServerError
+
 	if h.isHTTPError(err) {
-		return c.Status(err.(customerrors.HTTPError).GetStatusCode()).SendString(err.Error())
+		statusCode = err.(customerrors.HTTPError).GetStatusCode()
 	}
 
-	return c.Status(fiber.StatusInternalServerError).SendString(err.Error())
+	if statusCode == fiber.StatusInternalServerError {
+		//persist log
+	}
+
+	return c.Status(statusCode).SendString(err.Error())
 }
 
 func (h *baseControllerImpl) RespondSuccessWithBody(c *fiber.Ctx, result interface{}) error {
