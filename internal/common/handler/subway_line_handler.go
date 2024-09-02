@@ -63,11 +63,9 @@ func (h *subwayLineControllerImpl) GetByID(c *fiber.Ctx) error {
 
 // GetByCompanyID godoc
 func (h *subwayLineControllerImpl) GetByCompanyID(c *fiber.Ctx) error {
-	id, err := strconv.Atoi(c.Params("company_id"))
+	id, err := strconv.Atoi(c.Params(constants.CompanyID))
 	if err != nil {
-		return h.baseController.RespondError(
-			c, &customerrors.InvalidParameterError{ParameterType: constants.Integer, ParameterName: constants.CompanyID},
-		)
+		return h.baseController.RespondError(c, customerrors.NewInvalidParameterError(constants.Integer, constants.CompanyID))
 	}
 
 	response, err := h.subwayLineService.GetByCompanyID(uint(id))

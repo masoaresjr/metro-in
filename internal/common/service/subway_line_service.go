@@ -2,6 +2,7 @@ package service
 
 import (
 	"gorm.io/gorm"
+	"metro-in/internal/common/constants"
 	"metro-in/internal/common/customerrors"
 	"metro-in/internal/common/entity"
 	"metro-in/internal/common/repository"
@@ -32,7 +33,7 @@ func (c *subwayLineServiceImpl) GetAll() (subwayLines []entity.SubwayLine, err e
 // GetByID godoc
 func (c *subwayLineServiceImpl) GetByID(id uint) (entity.SubwayLine, error) {
 	if id == 0 {
-		return entity.SubwayLine{}, &customerrors.EmptyParameterError{ParameterName: "id"}
+		return entity.SubwayLine{}, &customerrors.EmptyParameterError{ParameterName: constants.ID}
 	}
 	return c.subwayLineRepository.GetByID(id)
 }
@@ -40,7 +41,7 @@ func (c *subwayLineServiceImpl) GetByID(id uint) (entity.SubwayLine, error) {
 // GetByCompanyID godoc
 func (c *subwayLineServiceImpl) GetByCompanyID(companyID uint) (subwayLines []entity.SubwayLine, err error) {
 	if companyID == 0 {
-		return []entity.SubwayLine{}, &customerrors.EmptyParameterError{ParameterName: "company_id"}
+		return []entity.SubwayLine{}, &customerrors.EmptyParameterError{ParameterName: constants.CompanyID}
 	}
 	return c.subwayLineRepository.GetByCompanyID(companyID)
 }
