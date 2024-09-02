@@ -34,7 +34,12 @@ func (h *stationControllerImpl) RegisterRoutes(app *fiber.App) {
 
 // GetStationByName godoc
 func (h *stationControllerImpl) GetStationByName(c *fiber.Ctx) error {
-	station, err := h.stationService.GetStationByName(c.Params(constants.Name))
+	name, err := h.baseController.GetStringParam(c, constants.Name)
+	if err != nil {
+		return h.baseController.RespondError(c, err)
+	}
+
+	station, err := h.stationService.GetStationByName(name)
 	if err != nil {
 		return h.baseController.RespondError(c, err)
 	}

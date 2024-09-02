@@ -4,10 +4,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 	"metro-in/internal/common/constants"
-	"metro-in/internal/common/customerrors"
 	"metro-in/internal/common/middleware"
 	"metro-in/internal/common/service"
-	"strconv"
 )
 
 // subwayLineControllerImpl implementation for SubwayLineController
@@ -33,6 +31,7 @@ func NewSubwayLineController(dbClient *gorm.DB) SubwayLineController {
 func (h *subwayLineControllerImpl) RegisterRoutes(app *fiber.App) {
 	lineRouter := app.Group(constants.LineHandler)
 	lineRouter.Get("/", middleware.AuthMiddleware, h.GetAll)
+	lineRouter.Get("/:id", middleware.AuthMiddleware, h.GetByID)
 }
 
 // GetAll godoc
@@ -46,14 +45,12 @@ func (h *subwayLineControllerImpl) GetAll(c *fiber.Ctx) error {
 
 // GetByID godoc
 func (h *subwayLineControllerImpl) GetByID(c *fiber.Ctx) error {
-	id, err := strconv.Atoi(c.Params(constants.ID))
+	id, err := h.baseController.GetUintParam(c, constants.ID)
 	if err != nil {
-		return h.baseController.RespondError(
-			c, &customerrors.InvalidParameterError{ParameterType: constants.Integer, ParameterName: constants.ID},
-		)
+		return h.baseController.RespondError(c, err)
 	}
 
-	response, err := h.subwayLineService.GetByID(uint(id))
+	response, err := h.subwayLineService.GetByID(id)
 	if err != nil {
 		return h.baseController.RespondError(c, err)
 	}
@@ -63,12 +60,12 @@ func (h *subwayLineControllerImpl) GetByID(c *fiber.Ctx) error {
 
 // GetByCompanyID godoc
 func (h *subwayLineControllerImpl) GetByCompanyID(c *fiber.Ctx) error {
-	id, err := strconv.Atoi(c.Params(constants.CompanyID))
+	companyID, err := h.baseController.GetUintParam(c, constants.CompanyID)
 	if err != nil {
-		return h.baseController.RespondError(c, customerrors.NewInvalidParameterError(constants.Integer, constants.CompanyID))
+		return h.baseController.RespondError(c, err)
 	}
 
-	response, err := h.subwayLineService.GetByCompanyID(uint(id))
+	response, err := h.subwayLineService.GetByCompanyID(companyID)
 	if err != nil {
 		return h.baseController.RespondError(c, err)
 	}

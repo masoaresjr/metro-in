@@ -3,13 +3,18 @@ package handler
 import (
 	"errors"
 	"github.com/gofiber/fiber/v2"
+	"metro-in/internal/common/constants"
 	"metro-in/internal/common/customerrors"
+	"strconv"
 )
 
 type baseControllerImpl struct{}
 
 // BaseController interface that deals with the http responses
 type BaseController interface {
+	GetUintParam(c *fiber.Ctx, paramName string) (paramValue uint, err error)
+	GetStringParam(c *fiber.Ctx, paramName string) (paramValue string, err error)
+
 	RespondError(ctx *fiber.Ctx, err error) error
 	RespondSuccessWithBody(ctx *fiber.Ctx, result interface{}) error
 	RespondSuccessNoContent(ctx *fiber.Ctx) error
@@ -41,6 +46,28 @@ func (h *baseControllerImpl) RespondSuccessWithBody(c *fiber.Ctx, result interfa
 func (h *baseControllerImpl) RespondSuccessNoContent(c *fiber.Ctx) error {
 	c.Status(fiber.StatusNoContent)
 	return nil
+}
+
+func (h *baseControllerImpl) GetUintParam(c *fiber.Ctx, paramName string) (paramValue uint, err error) {
+	param := c.Params(paramName)
+	if param == "" {
+		return 0, h.RespondError(c, customerrors.NewEmptyParameterError(constants.ID))
+	}
+
+	uintParam, err := strconv.ParseUint(param, 10, 64)
+	if err != nil {
+		return 0, h.RespondError(c, customerrors.NewInvalidParameterError(constants.Integer, paramName))
+	}
+
+	return uint(uintParam), nil
+}
+
+func (h *baseControllerImpl) GetStringParam(c *fiber.Ctx, paramName string) (paramValue string, err error) {
+	param := c.Params(paramName)
+	if param == "" {
+		return "", h.RespondError(c, customerrors.NewEmptyParameterError(paramName))
+	}
+	return param, nil
 }
 
 func (h *baseControllerImpl) isHTTPError(err error) bool {

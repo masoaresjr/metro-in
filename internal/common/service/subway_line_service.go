@@ -31,9 +31,9 @@ func (c *subwayLineServiceImpl) GetAll() (subwayLines []entity.SubwayLine, err e
 }
 
 // GetByID godoc
-func (c *subwayLineServiceImpl) GetByID(id uint) (entity.SubwayLine, error) {
+func (c *subwayLineServiceImpl) GetByID(id uint) (subwayLine entity.SubwayLine, err error) {
 	if id == 0 {
-		return entity.SubwayLine{}, &customerrors.EmptyParameterError{ParameterName: constants.ID}
+		return subwayLine, customerrors.NewEmptyParameterError(constants.ID)
 	}
 	return c.subwayLineRepository.GetByID(id)
 }
@@ -41,7 +41,7 @@ func (c *subwayLineServiceImpl) GetByID(id uint) (entity.SubwayLine, error) {
 // GetByCompanyID godoc
 func (c *subwayLineServiceImpl) GetByCompanyID(companyID uint) (subwayLines []entity.SubwayLine, err error) {
 	if companyID == 0 {
-		return []entity.SubwayLine{}, &customerrors.EmptyParameterError{ParameterName: constants.CompanyID}
+		return subwayLines, customerrors.NewEmptyParameterError(constants.CompanyID)
 	}
 	return c.subwayLineRepository.GetByCompanyID(companyID)
 }

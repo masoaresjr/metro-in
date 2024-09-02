@@ -2,8 +2,6 @@ package repository
 
 import (
 	"gorm.io/gorm"
-	"metro-in/internal/common/constants"
-	"metro-in/internal/common/customerrors"
 	"metro-in/internal/common/entity"
 )
 
@@ -23,8 +21,5 @@ func NewStationRepository(dbClient *gorm.DB) StationRepository {
 }
 
 func (r *stationRepositoryImpl) GetStationByName(name string) (station entity.Station, err error) {
-	if name == "" {
-		return station, customerrors.NewEmptyParameterError(constants.Name)
-	}
 	return station, r.db.Where("name = ?", name).First(&station).Error
 }
