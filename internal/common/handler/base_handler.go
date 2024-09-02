@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"errors"
 	"github.com/gofiber/fiber/v2"
 	"metro-in/internal/common/customerrors"
 )
@@ -43,6 +44,6 @@ func (h *baseControllerImpl) RespondSuccessNoContent(c *fiber.Ctx) error {
 }
 
 func (h *baseControllerImpl) isHTTPError(err error) bool {
-	_, ok := err.(customerrors.HTTPError)
-	return ok
+	var HTTPError customerrors.HTTPError
+	return errors.As(err, &HTTPError)
 }

@@ -3,6 +3,8 @@ package handler
 import (
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
+	"metro-in/internal/common/constants"
+	"metro-in/internal/common/middleware"
 	"metro-in/internal/common/service"
 )
 
@@ -14,6 +16,7 @@ type stationControllerImpl struct {
 
 // StationController interface for subway lines routes
 type StationController interface {
+	RegisterRoutes(app *fiber.App)
 	GetStationByName(*fiber.Ctx) error
 }
 
@@ -23,10 +26,15 @@ func NewStationController(dbClient *gorm.DB) StationController {
 	return &stationControllerImpl{stationService: service.NewStationService(dbClient), baseController: baseController}
 }
 
+// RegisterRoutes set the http routes for the handler
+func (h *stationControllerImpl) RegisterRoutes(app *fiber.App) {
+	stationRouter := app.Group(constants.StationHandler)
+	stationRouter.Get("/:name", middleware.AuthMiddleware, h.GetStationByName)
+}
+
 // GetStationByName godoc
 func (h *stationControllerImpl) GetStationByName(c *fiber.Ctx) error {
-
-	station, err := h.stationService.GetStationByName(c.Params("name"))
+	station, err := h.stationService.GetStationByName(c.Params(constants.Name))
 	if err != nil {
 		return h.baseController.RespondError(c, err)
 	}

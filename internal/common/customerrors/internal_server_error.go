@@ -12,7 +12,7 @@ type InternalServerError struct{}
 
 // Error returns a message for EmptyParameterError.
 func (e *InternalServerError) Error() string {
-	return fmt.Sprintf("An unexpected error has ocurred")
+	return fmt.Sprintf("An unexpected error has ocurred: %s", e.Error())
 }
 
 // GetStatusCode returns a http status code

@@ -21,7 +21,6 @@ func TestBaseController(t *testing.T) {
 }
 
 func TestBaseControllerImpl_RespondError(t *testing.T) {
-
 	stationController := baseControllerImpl{}
 	tests := []controller.HTTPTest{
 		{
@@ -48,7 +47,6 @@ func TestBaseControllerImpl_RespondError(t *testing.T) {
 }
 
 func TestBaseControllerImpl_RespondSuccessWithBody(t *testing.T) {
-
 	stationController := baseControllerImpl{}
 	tests := []controller.HTTPTest{
 		{
