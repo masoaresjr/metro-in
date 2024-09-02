@@ -26,24 +26,21 @@ func NewSubwayLineRepository(dbClient *gorm.DB) SubwayLineRepository {
 
 // GetAll godoc
 func (c *subwayLineRepositoryImpl) GetAll() (subwayLines []entity.SubwayLine, err error) {
-	err = c.db.Find(&subwayLines).Error
-	return subwayLines, err
+	return subwayLines, c.db.Find(&subwayLines).Error
 }
 
 // GetByID godoc
 func (c *subwayLineRepositoryImpl) GetByID(id uint) (subwayLine entity.SubwayLine, err error) {
 	if id == 0 {
-		err = customerrors.NewEmptyParameterError(constants.ID)
+		return subwayLine, customerrors.NewEmptyParameterError(constants.ID)
 	}
-	err = c.db.Where("id = ?", id).First(&subwayLine).Error
-	return subwayLine, err
+	return subwayLine, c.db.Where("id = ?", id).First(&subwayLine).Error
 }
 
 // GetByCompanyID godoc
 func (c *subwayLineRepositoryImpl) GetByCompanyID(companyID uint) (subwayLine []entity.SubwayLine, err error) {
 	if companyID == 0 {
-		err = customerrors.NewEmptyParameterError(constants.CompanyID)
+		return subwayLine, customerrors.NewEmptyParameterError(constants.CompanyID)
 	}
-
-	return []entity.SubwayLine{}, nil
+	return subwayLine, c.db.Where("company_id = ?", companyID).First(&subwayLine).Error
 }
