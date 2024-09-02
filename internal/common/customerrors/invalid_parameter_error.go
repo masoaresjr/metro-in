@@ -23,6 +23,7 @@ func (e *InvalidParameterError) GetStatusCode() int {
 	return fiber.StatusBadRequest
 }
 
+// NewInvalidParameterError instantiate a new error
 func NewInvalidParameterError(ParameterType string, ParameterName interface{}) *InvalidParameterError {
 	return &InvalidParameterError{ParameterName: ParameterName, ParameterType: ParameterType}
 }

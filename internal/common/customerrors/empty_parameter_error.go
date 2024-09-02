@@ -22,6 +22,7 @@ func (e *EmptyParameterError) GetStatusCode() int {
 	return fiber.StatusBadRequest
 }
 
+// NewEmptyParameterError instantiate a new error
 func NewEmptyParameterError(parameterName interface{}) *EmptyParameterError {
 	return &EmptyParameterError{ParameterName: parameterName}
 }
